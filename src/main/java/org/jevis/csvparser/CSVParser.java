@@ -27,8 +27,38 @@ import org.joda.time.format.DateTimeFormatter;
  *
  * @author broder
  */
-public class CSVParser {
+public class CSVParser implements Parser {
+
+    // interfaces
+    interface CSV extends DataCollectorTypes.Parser {
+
+        public final static String NAME = "CSV Parser";
+        public final static String DATAPOINT_INDEX = "Datapoint Index";
+        public final static String DATE_INDEX = "Date Index";
+        public final static String DELIMITER = "Delimiter";
+        public final static String NUMBER_HEADLINES = "Number Of Headlines";
+        public final static String QUOTE = "Quote";
+        public final static String TIME_INDEX = "Time Index";
+        public final static String DATE_FORMAT = "Date Format";
+        public final static String DECIMAL_SEPERATOR = "Decimal Separator";
+        public final static String TIME_FORMAT = "Time Format";
+        public final static String THOUSAND_SEPERATOR = "Thousand Separator";
+    }
+
+    interface CSVDataPointDirectory extends DataCollectorTypes.DataPointDirectory {
+
+        public final static String NAME = "CSV Data Point Directory";
+    }
     
+    interface CSVDataPoint extends DataCollectorTypes.DataPoint {
+
+        public final static String NAME = "CSV Data Point";
+        public final static String MAPPING_IDENTIFIER = "Mapping Identifier";
+        public final static String VALUE_INDEX = "Value Index";
+        public final static String TARGET = "Target";
+    }
+
+    // member variables
     private String _quote;
     private String _delim;
     private Integer _headerLines;
@@ -191,12 +221,10 @@ public class CSVParser {
         this._quote = _quote;
     }
 
-    public void setDelim(String _delim) {
-        this._delim = _delim;
     }
 
-    public void setHeaderLines(Integer _headerLines) {
-        this._headerLines = _headerLines;
+    public void setDelim(String _delim) {
+        this._delim = _delim;
     }
 
     public void setDateIndex(Integer _dateIndex) {
@@ -237,3 +265,5 @@ public class CSVParser {
     
     
 }
+    public void setHeaderLines(Integer _headerLines) {
+        this._headerLines = _headerLines;
