@@ -120,7 +120,7 @@ public class JEVisCSVParser implements Parser {
             JEVisObject dir = parserObject.getChildren(dirClass, true).get(0);
             JEVisClass dpClass = parserObject.getDataSource().getJEVisClass(DataCollectorTypes.DataPoint.CSVDataPoint.NAME);
             List<JEVisObject> dataPoints = dir.getChildren(dpClass, true);
-            List<CSVDataPoint> csvdatapoints = new ArrayList<CSVDataPoint>();
+            List<DataPoint> csvdatapoints = new ArrayList<DataPoint>();
             for (JEVisObject dp : dataPoints) {
                 JEVisType mappingIdentifierType = dpClass.getType(DataCollectorTypes.DataPoint.CSVDataPoint.MAPPING_IDENTIFIER);
                 JEVisType targetType = dpClass.getType(DataCollectorTypes.DataPoint.CSVDataPoint.TARGET);
@@ -143,7 +143,7 @@ public class JEVisCSVParser implements Parser {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                CSVDataPoint csvdp = new CSVDataPoint();
+                DataPoint csvdp = new DataPoint();
                 csvdp.setMappingIdentifier(mappingIdentifier);
                 csvdp.setTarget(target);
                 csvdp.setValueIndex(valueIndex);

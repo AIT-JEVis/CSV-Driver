@@ -10,13 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.jevis.api.JEVisClass;
 import org.jevis.api.JEVisException;
-import org.jevis.api.JEVisObject;
-import org.jevis.api.JEVisType;
-import org.jevis.commons.DatabaseHelper;
 import org.jevis.commons.driver.Converter;
-import org.jevis.commons.driver.ConverterFactory;
 import org.jevis.commons.driver.DataCollectorTypes;
 import org.jevis.commons.driver.Result;
 import org.joda.time.DateTime;
@@ -27,7 +22,7 @@ import org.joda.time.format.DateTimeFormatter;
  *
  * @author broder
  */
-public class CSVParser implements Parser {
+public class CSVParser {
 
     // interfaces
     interface CSV extends DataCollectorTypes.Parser {
@@ -49,13 +44,14 @@ public class CSVParser implements Parser {
 
         public final static String NAME = "CSV Data Point Directory";
     }
-    
+
     interface CSVDataPoint extends DataCollectorTypes.DataPoint {
 
         public final static String NAME = "CSV Data Point";
         public final static String MAPPING_IDENTIFIER = "Mapping Identifier";
         public final static String VALUE_INDEX = "Value Index";
         public final static String TARGET = "Target";
+
     }
 
     // member variables
@@ -71,9 +67,8 @@ public class CSVParser implements Parser {
     private String _thousandSeperator;
 
     private List<Result> _results = new ArrayList<Result>();
-    private List<CSVDataPoint> _dataPoints = new ArrayList<CSVDataPoint>();
+    private List<DataPoint> _dataPoints = new ArrayList<DataPoint>();
     private Converter _converter;
-
 
     public void parse(List<InputStream> inputList) {
         Logger.getLogger(this.getClass().getName()).log(Level.ALL, "Start CSV parsing");
@@ -108,7 +103,7 @@ public class CSVParser implements Parser {
     private void parseLine(String[] line) throws JEVisException {
         DateTime dateTime = getDateTime(line);
 
-        for (CSVDataPoint dp : _dataPoints) {
+        for (DataPoint dp : _dataPoints) {
             try {
                 String mappingIdentifier = dp.getMappingIdentifier();
                 Integer valueIndex = dp.getValueIndex();
@@ -221,8 +216,6 @@ public class CSVParser implements Parser {
         this._quote = _quote;
     }
 
-    }
-
     public void setDelim(String _delim) {
         this._delim = _delim;
     }
@@ -255,15 +248,15 @@ public class CSVParser implements Parser {
         this._thousandSeperator = _thousandSeperator;
     }
 
-    public void setDataPoints(List<CSVDataPoint> _dataPoints) {
+    public void setDataPoints(List<DataPoint> _dataPoints) {
         this._dataPoints = _dataPoints;
     }
 
     public void setConverter(Converter _converter) {
         this._converter = _converter;
     }
-    
-    
-}
+
     public void setHeaderLines(Integer _headerLines) {
         this._headerLines = _headerLines;
+    }
+}

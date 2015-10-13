@@ -9,7 +9,7 @@ package org.jevis.csvparser;
  *
  * @author broder
  */
-public class CSVDataPoint {
+public class DataPoint {
     
     private String mappingIdentifier;
     private Integer valueIndex;
